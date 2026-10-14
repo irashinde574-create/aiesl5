@@ -1,0 +1,3 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {createBuilding,keyOf,isPassable} from '../js/building.js';import {createBug2,stepBug2} from '../js/bug2.js';
+test('BUG2 has explicit goal and boundary-following state',()=>{const b=createBuilding('open'),a=createBug2(b,{floor:0,r:7,c:8});assert.ok(a.goal);assert.equal(a.mode,'goal');assert.ok(a.visited instanceof Set);});
+test('BUG2 steps only into passable cells',()=>{const b=createBuilding('open'),a=createBug2(b,{floor:0,r:7,c:8});for(let i=0;i<10&&!a.done&&!a.failed;i++){stepBug2(a,b);assert.ok(isPassable(b,a.position));}assert.ok(a.path.every(p=>isPassable(b,p)));});

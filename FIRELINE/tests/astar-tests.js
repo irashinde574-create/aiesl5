@@ -1,0 +1,4 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {createBuilding,keyOf,getCell,isPassable} from '../js/building.js';import {astar} from '../js/astar.js';
+test('A* finds a route to a fixed exit',()=>{const b=createBuilding('open'),s={floor:0,r:7,c:8};const result=astar(b,s);assert.ok(result.path.length>1);assert.ok(b.exits.some(e=>keyOf(e)===keyOf(result.path.at(-1))));for(const p of result.path)assert.ok(isPassable(b,p));});
+test('A* reports no route when start is blocked',()=>{const b=createBuilding();const s={floor:0,r:5,c:5};getCell(b,s).dynamicObstacle=true;assert.equal(astar(b,s).path.length,0);});
+test('A* supports cross-floor paths through stairs',()=>{const b=createBuilding('open'),s={floor:0,r:7,c:8};getCell(b,{floor:0,r:7,c:0}).fire='burning';const result=astar(b,s);assert.ok(result.path.some(p=>p.floor===1));});

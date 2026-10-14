@@ -1,0 +1,11 @@
+{
+  "name": "fireline-evacuation-simulator",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.js",
+    "serve": "python3 -m http.server 8000"
+  },
+  "description": "Two-floor fire-aware evacuation simulator comparing BUG2, A*, and A* + D* Lite"
+}
